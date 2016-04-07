@@ -14,7 +14,8 @@
 
     <author href="httpp://www.ashesi.edu.gh" email="migaliza.lyza@gmail.com">>
 			Beatrice Migaliza
-		</author>
+    </author>
+    <content src="index.html"/>
 
     <!--
         If you do not want any permissions to be added to your app, add the
@@ -71,7 +72,7 @@
     -->
 
     <!-- Define app icon for each platform. -->
-    <icon src="icon.png" />
+    <icon src="logo.png" />
     <icon src="res/icon/android/logo.png"   gap:platform="android"    gap:qualifier="ldpi" />
     <icon src="res/icon/android/logo.png"   gap:platform="android"    gap:qualifier="mdpi" />
     <icon src="res/icon/android/logo.png"   gap:platform="android"    gap:qualifier="hdpi" />

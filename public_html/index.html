@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+        <title>MyRide</title>
+
+        <!-- CSS  -->
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+    </head>
+    <body >
+        <div class="navbar-fixed">
+            <nav class="deep-orange lighten-2">
+                <div class="nav-wrapper container">
+                    <a id="logo-container" href="#!" class="brand-logo">MyRide</a>
+
+
+                    <ul class="right hide-on-med-and-down">
+                        <li> <a href="#">Home</a></li>
+                        <li><a href="BusRider.html">Bus Rider</a></li>
+                        <li><a href="#">Driver</a></li>
+                        <li><a href="adminLogin.html">Management</a></li>
+                    </ul>
+                    <!--mobile div-->
+                    <div id="nav-mobile" class="side-nav">
+                        <ul >
+                            <li><a href="#">Home</a></li>
+                            <li><a href="BusRider.html">Bus Rider</a></li>
+                            <li><a href="#">Driver</a></li>
+                            <li><a href="adminLogin.html">Management</a></li>  
+                        </ul>
+                    </div>
+
+                    <a href="#" data-activates="nav-mobile" class="button-collapse left"><i class="material-icons">menu</i> </a>
+                </div>
+            </nav>
+        </div>
+
+        
+        <!--search box-->
+        
+            <input id="start" class="controls" type="text" placeholder="Type starting point">
+            <input id="end" class="controls" type="text" placeholder="Type Destination">
+            <div id="MapCanvas" class="center" > </div>
+            
+        <!--  Scripts-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfMvZQEeSmLPAXBUaRcjS4gfK43F9vucY&libraries&libraries=places" async defer></script>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/materialize.js"></script>
+        <script src="js/controller.js"></script>
+        <script src="js/GMap.js"></script>
+    </body>
+</html>

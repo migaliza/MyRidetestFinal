@@ -237,5 +237,47 @@ switch ($cmd) {
             }
         
         break;
+        
+    case 12:
+        include_once ('busStops.php');
+        $busStops = new busStops();
+        
+        $stop_Id = $_REQUEST['Bus_Stop_Name'];
+        //echo $stop_Id;
+        if($busStops->search_Bus_Stop($stop_Id)){
+            $row = $busStops->fetch();
+            echo '{"result":1,"stops":[';
+            while($row){
+                echo json_encode($row);
+                $row = $busStops->fetch();
+                if($row){
+                    echo ",";
+                }
+            }
+            echo "]}";
+        }
+        else{
+            echo '{"result":0 "message": "UNSUCCESFULL"}';
+        }
+        
+        break;
+    case 13:
+        include_once('bus.php');
+        $bus = new bus();
+        
+        if($bus->display_buses_available_byNames()){
+            $row = $bus->fetch();
+            echo '{"result":1,"busNames":[';
+            while($row){
+                echo json_encode($row);
+                $row = $bus->fetch();
+                if($row){
+                    echo ",";
+                }
+                
+            }
+            echo "]}";
+        }
+        
 }
 ?>

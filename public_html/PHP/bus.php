@@ -76,8 +76,8 @@ class bus extends adb{
      * @param type $agency_name
      * @return boolean
      */
-    function display_buses_available($agency_name){
-        $str_query="SELECT * FROM bus WHERE Bus_Agency='$agency_name'";
+    function display_buses_available_byNames(){
+        $str_query="SELECT Bus_Id,Bus_Name FROM bus ";
         if($this->query($str_query)){
             return true;
         }

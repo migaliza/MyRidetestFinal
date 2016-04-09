@@ -35,7 +35,7 @@ class busStops extends adb{
      * @return boolean
      */
     function fetch_Bus_Stops(){
-        $str_query = "SELECT busstops.Bus_Stop_Name, busstops.Longitude, busstops.Latitude, bus.Bus_Name FROM busstops INNER JOIN routes ON busstops.RouteId = routes.Route_Code INNER JOIN bus ON bus.Bus_Id = routes.Bus_Id";      
+        $str_query = "SELECT busstops.Bus_Stop_Id, busstops.Bus_Stop_Name, busstops.Longitude, busstops.Latitude, bus.Bus_Name FROM busstops INNER JOIN routes ON busstops.RouteId = routes.Route_Code INNER JOIN bus ON bus.Bus_Id = routes.Bus_Id";      
         if($this->query($str_query)){
             return true;
         }
@@ -49,6 +49,16 @@ class busStops extends adb{
         else{
             return false;
         }*/
+    }
+    
+    function search_Bus_Stop($stopName){
+        $str_query = "SELECT  bus.Bus_Name FROM busstops INNER JOIN routes ON busstops.RouteId = routes.Route_Code INNER JOIN bus ON bus.Bus_Id = routes.Bus_Id WHere Bus_Stop_Name='$stopName'";
+        if($this->query($str_query)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
 }

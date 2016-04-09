@@ -119,8 +119,10 @@ function initMap(position) {
                 var stopName = busStops.Bus_Stop_Name;
                 var busNames = busStops.Bus_Name;
                 
-                buses[i]=busNames;
+                buses[i]= busNames;
+                
                 //alert(buses[i]);
+                //alert(buses.length);
                 //var info= '<div id="content">'+'<div id="siteNotice">'+'<div class="row">'+'<p> <b>Bus Name: '+bus
                   //      +'</b></p><p><b> From: '+'</b></p><p><b>To: '+'</b><p><b>Next Bus Stop: '+'</b></p><p><b>Capacity: '+'</b></p></div>'+'</div></div>';
                 
@@ -132,10 +134,10 @@ function initMap(position) {
                    icon: busIcon,
                    title: stopName
                 });
-                
+                //alert(buses.length);
                 for(i=0;i<buses.length;i++){
                     alert(buses[i]);
-                }        
+                }      
             });
                 
             
@@ -261,3 +263,13 @@ function sendRequest(u) {
 $(document).ready(function(){
     $('.modal-trigger').leanModal();
 });
+
+
+
+function displayBusStopInfo(id){
+    var theUrl="http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=5";
+    var searchElement= document.createElement("div");
+    searchElement.innerHTML= "<input type='text' value='id' ";
+    
+    
+}

@@ -5,6 +5,13 @@
  */
 $(document).ready(function () {
     $(".button-collapse").sideNav();
+   
+    displayRouteCode();
+    displayBusNames();
+    $('.modal-trigger').leanModal();
+    $('.collapsible').collapsible({
+        accordion: false
+    });
     //$('#traffic').openModal();
     //$('#busStatus').closeModal();
 });
@@ -39,6 +46,75 @@ function sendRequest(u) {
     var result = $.parseJSON(obj.responseText);
     return result;
 }
+function setAttribute(element, attributes) {
+    Object.keys(attributes).forEach(function (name) {
+        element.setAttribute(name, attributes[name]);
+    });
+}
+
+/**
+ * function to display the bus stops
+ * @returns {undefined}
+ */
+function displayStops() {
+    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=5";
+    var object = sendRequest(theUrl);
+    //var listBusesEl = document.createElement("ul");
+
+    //setAttribute(listBusesEl,{"class": "collapsible","data-collapsible": "accordion"});
+    if (object.result === 1) {
+        var listStops = "";
+        var ilElement = $("<li></li>");
+        var listbus =$("<li></li>");
+        // var listbuses = "";
+        $.each(object.busStops, function (i, busStops) {
+            var stopName = busStops.Bus_Stop_Name;
+            //ilElement.html('<li style="list-style-type:none;"><div class="collapsible-header" id="' + stopName + '"><i class="mdi-navigation-chevron-right"></i>' + stopName + '</div><div class="collapsible-body"><ul id="listBuses"></ul></div>');
+            
+
+            listStops += '<li style="list-style-type:none;"><div class="collapsible-header data" id="' +this.Bus_Stop_Id + '"><i class="mdi-navigation-chevron-right"></i>' + stopName + '</div><div class="collapsible-body "><ul id="listBuses"></ul></div>';
+             //$("#stopsAvailable").append(listStops);
+            //var isStop = stopName;
+           // alert(this.Bus_Stop_Name);
+            var theUrl2 = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=12&Bus_Stop_Name=" + this.Bus_Stop_Name;
+            var obj2 = sendRequest(theUrl2);
+
+            if (obj2.result === 1) {
+                //var listbus = "";
+                $.each(obj2.stops, function (i, stops) {
+                   // listbus += '<li>' + stops.Bus_Name + '</li>';
+                   alert(stops.Bus_Name);
+                   listbus.html('<li>'+stops.Bus_Name+'</li>');
+                   $("#listBuses").append(listbus);
+                });
+                 //$("#listbuses").html(listbus);
+                //$("#listBuses").append(listbus);
+            }
+            
+           
+        });
+         $("#stopsAvailable").append(listStops);
+        
+
+        /* $("#stopsAvailable").append(listStops).promise().done(function () {
+         $(this).on("click", ".data", function (e) {
+         var isStop = this.id;
+         var theUrl2 = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=12&Bus_Stop_Name=" + isStop;
+         var obj2 = sendRequest(theUrl2);
+         if (obj2.result === 1) {
+         var listbus = "";
+         $.each(obj2.busStops, function (i, busStops) {
+         listbus += '<li>' + busStops.Bus_Name + '</li>';
+         });
+         //$(".listbuses").html(listbus);
+         $("#listBuses").append(listbus);
+         }
+         // var stopItem;
+         });
+         });*/
+
+    }
+}
 
 /**
  * function to add data to the database
@@ -58,7 +134,7 @@ function addBus() {
     console.log(theUrl);
     var object = sendRequest(theUrl);
 
-    if (object.result == 1) {
+    if (object.result === 1) {
         Materialize.toast(object.message, 5000, 'rounded');
     }
     else {
@@ -190,7 +266,7 @@ function managementSignUp() {
 /**
  * function to display the route details
  */
-$(document).ready(function () {
+function displayRouteCode() {
     var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=9";
     var object = sendRequest(theUrl);
 
@@ -209,7 +285,7 @@ $(document).ready(function () {
     else {
         Materialize.toast(object.message, 4000, 'rounded');
     }
-});
+}
 
 /**
  * function to validate email input
@@ -248,18 +324,38 @@ function managementLogin() {
     var password = $("#password").val();
 
     var stringVal = "email=" + email + "&Assigned_Pass=" + password;
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=11&" +stringVal;
+    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=11&" + stringVal;
 
     var object = sendRequest(theUrl);
 
     if (object.result === 1) {
         //window.location="/";
-        window.location= "/DashBoard.html";
-    
+        window.location = "/DashBoard.html";
+
     }
     else {
         Materialize.toast(object.message, 4000, 'rounded');
     }
+}
 
-
+/**
+ * function to display the bus Names in the select options 
+ * while updating the bus status
+ * @returns {undefined}
+ */
+function displayBusNames(){
+    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=13";
+    var object = sendRequest(theUrl);
+    
+    if(object.result ===1){
+         $.each(object.busNames, function (i,busNames) {
+            var optionElement = document.createElement('option');
+            optionElement.value = busNames.Bus_Name;
+            optionElement.innerHTML = busNames.Bus_Name;
+            $("#busNameId").append(optionElement);
+            //var routeElement = $('<select></select>');
+            //routeElement.html('<option value="'+i+'">'+routes.Route_Code+'</option>');
+            //$("#routecode").append('<option value="'+i+'">'+routes.Route_Code+'</option>');
+        });
+    }
 }

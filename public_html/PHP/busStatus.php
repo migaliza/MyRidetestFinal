@@ -11,6 +11,7 @@ include("adb.php");
 class busStatus extends adb{
     
     function add_new_status(){
+        $str_query = "INSERT ";
         
     }
     

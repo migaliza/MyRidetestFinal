@@ -5,7 +5,7 @@
  */
 $(document).ready(function () {
     $(".button-collapse").sideNav();
-   
+
     displayRouteCode();
     displayBusNames();
     $('.modal-trigger').leanModal();
@@ -63,56 +63,53 @@ function displayStops() {
 
     //setAttribute(listBusesEl,{"class": "collapsible","data-collapsible": "accordion"});
     if (object.result === 1) {
-        var listStops = "";
-        var ilElement = $("<li></li>");
-        var listbus =$("<li></li>");
-        // var listbuses = "";
+        var listStops;
+
+        //var listbus = $("<li></li>");
+       // var listBusStops = document.createElement("div");
+
         $.each(object.busStops, function (i, busStops) {
             var stopName = busStops.Bus_Stop_Name;
-            //ilElement.html('<li style="list-style-type:none;"><div class="collapsible-header" id="' + stopName + '"><i class="mdi-navigation-chevron-right"></i>' + stopName + '</div><div class="collapsible-body"><ul id="listBuses"></ul></div>');
+            //listStops += '<li style="list-style-type:none;"><div class="collapsible-header data" id="' + this.Bus_Stop_Id + '"><i class="mdi-navigation-chevron-right"></i>' + stopName + '</div><div class="collapsible-body "><ul id="listBuses"></ul></div>';
+            listStops = '<li style="list-style-type:none;"><div class="collapsible-header data" id="' + busStops.Bus_Stop_Name + '"><i class="mdi-navigation-chevron-right"></i>' + stopName + '</div><div class="collapsible-body "><ul id="first'+busStops.Bus_Stop_Id+'"></ul></div>';
             
-
-            listStops += '<li style="list-style-type:none;"><div class="collapsible-header data" id="' +this.Bus_Stop_Id + '"><i class="mdi-navigation-chevron-right"></i>' + stopName + '</div><div class="collapsible-body "><ul id="listBuses"></ul></div>';
-             //$("#stopsAvailable").append(listStops);
-            //var isStop = stopName;
-           // alert(this.Bus_Stop_Name);
-            var theUrl2 = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=12&Bus_Stop_Name=" + this.Bus_Stop_Name;
+             $("#stopsAvailable").append(listStops);
+            var theUrl2 = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=12&Bus_Stop_Name=" + busStops.Bus_Stop_Name;
             var obj2 = sendRequest(theUrl2);
 
+
             if (obj2.result === 1) {
-                //var listbus = "";
+               var idUSed="#first"+busStops.Bus_Stop_Id;
                 $.each(obj2.stops, function (i, stops) {
-                   // listbus += '<li>' + stops.Bus_Name + '</li>';
-                   alert(stops.Bus_Name);
-                   listbus.html('<li>'+stops.Bus_Name+'</li>');
-                   $("#listBuses").append(listbus);
+                  
+                    var busNode = document.createElement("Li");
+                  var  textBus = document.createTextNode(stops.Bus_Name);
+
+                    busNode.appendChild(textBus);
+                   $(idUSed).append(busNode);
                 });
-                 //$("#listbuses").html(listbus);
-                //$("#listBuses").append(listbus);
             }
-            
-           
         });
-         $("#stopsAvailable").append(listStops);
-        
+      
 
-        /* $("#stopsAvailable").append(listStops).promise().done(function () {
-         $(this).on("click", ".data", function (e) {
-         var isStop = this.id;
-         var theUrl2 = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=12&Bus_Stop_Name=" + isStop;
-         var obj2 = sendRequest(theUrl2);
-         if (obj2.result === 1) {
-         var listbus = "";
-         $.each(obj2.busStops, function (i, busStops) {
-         listbus += '<li>' + busStops.Bus_Name + '</li>';
-         });
-         //$(".listbuses").html(listbus);
-         $("#listBuses").append(listbus);
-         }
-         // var stopItem;
-         });
-         });*/
 
+    }
+}
+
+/**
+ * function to display the collapsiblke body
+ * @returns {undefined}
+ */
+function populateCollapsibleBody(isStop) {
+    var theUrl2 = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=12&Bus_Stop_Name=" + isStop;
+    var obj2 = sendRequest(theUrl2);
+    if (obj2.result === 1) {
+        var listbus = "";
+        $.each(obj2.busStops, function (i, busStops) {
+            listbus += '<li>' + busStops.Bus_Name + '</li>';
+        });
+    
+        $("#listBuses").append(listbus);
     }
 }
 
@@ -343,12 +340,12 @@ function managementLogin() {
  * while updating the bus status
  * @returns {undefined}
  */
-function displayBusNames(){
+function displayBusNames() {
     var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=13";
     var object = sendRequest(theUrl);
-    
-    if(object.result ===1){
-         $.each(object.busNames, function (i,busNames) {
+
+    if (object.result === 1) {
+        $.each(object.busNames, function (i, busNames) {
             var optionElement = document.createElement('option');
             optionElement.value = busNames.Bus_Name;
             optionElement.innerHTML = busNames.Bus_Name;
@@ -358,4 +355,32 @@ function displayBusNames(){
             //$("#routecode").append('<option value="'+i+'">'+routes.Route_Code+'</option>');
         });
     }
+}
+
+
+function add_bus_status(){
+    var status = $("#textarea1BusStatus").val();
+    var priority="";
+    var bus_name =$("#busNameId").val();
+    if(document.getElementById("high").checked){
+        priority = "HIGH";
+    }
+    else if(document.getElementById("medium").checked){
+        priority = "MEDIUM";
+    }
+    else if(document.getElementById("low").checked){
+      priority ="LOW";
+    }
+    
+    
+    var stringVal = "Status="+status+"&Importance="+priority+"&BusName="+bus_name;
+    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=14&"+stringVal;
+    
+   var object = sendRequest(theUrl);
+   if(object.result===1){
+       Materialize.toast(object.message, 4000, 'rounded');
+   }
+   else{
+       Materialize.toast(object.message, 4000, 'rounded');
+   }
 }

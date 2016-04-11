@@ -45,6 +45,8 @@ function initMap(position) {
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
     var map = new google.maps.Map(document.getElementById('MapCanvas'), options);
+    
+    var personIcon = new google.maps.MarkerImage("images/personP.png", null, null, null, new google.maps.Size(60, 60));
 
 
     /*
@@ -54,7 +56,8 @@ function initMap(position) {
    var marker = new google.maps.Marker({
         position: coords,
         map: map,
-        title: "Your are here"
+        title: "Your are here",
+        icon: personIcon
     });
     
     
@@ -121,12 +124,14 @@ function initMap(position) {
                 
                 buses[i]= busNames;
                 
-                //alert(buses[i]);
-                //alert(buses.length);
-                //var info= '<div id="content">'+'<div id="siteNotice">'+'<div class="row">'+'<p> <b>Bus Name: '+bus
-                  //      +'</b></p><p><b> From: '+'</b></p><p><b>To: '+'</b><p><b>Next Bus Stop: '+'</b></p><p><b>Capacity: '+'</b></p></div>'+'</div></div>';
+                 var info= '<div id="content">'+'<div id="siteNotice">'+'<div class="row">'+'<p> <b>Bus Stop Name: '+stopName
+                        +'</b></p></div></div>';
                 
-                var busIcon = new google.maps.MarkerImage("images/busStopIcon.ico",null,null,null,new google.maps.Size(30,30));
+                var infowindow = new google.maps.InfoWindow({
+                    content: info
+                });
+                
+                var busIcon = new google.maps.MarkerImage("images/busStopI.png",null,null,null,new google.maps.Size(30,30));
                 
                 var marker = new google.maps.Marker({
                    map:map,
@@ -134,10 +139,9 @@ function initMap(position) {
                    icon: busIcon,
                    title: stopName
                 });
-                //alert(buses.length);
-                for(i=0;i<buses.length;i++){
-                    alert(buses[i]);
-                }      
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                });     
             });
                 
             

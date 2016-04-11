@@ -10,9 +10,14 @@ include("adb.php");
 
 class busStatus extends adb{
     
-    function add_new_status(){
-        $str_query = "INSERT ";
-        
+    function add_new_status($status,$importance,$busName){
+        $str_query = "INSERT INTO busstatus (Status,Importance,BusName) VALUES('$status','$importance','$busName')";
+        if($this->query($str_query)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     function edit_status(){

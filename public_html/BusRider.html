@@ -127,7 +127,7 @@ and open the template in the editor.
                         <div class="row">
                                 <div class="input-field col s12" >
                                     <p>Select Bus by Name</p>
-                                    <select  class="browser-default" id="busNameId" name="Bus_Name">
+                                    <select  class="browser-default" id="busNameId" name="BusName">
                                         
                                     </select>
                                 </div>
@@ -135,11 +135,23 @@ and open the template in the editor.
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">mode_edit</i>
-                                <textarea id="textarea1BusStatus" class="materialize-textarea"></textarea>
+                                <input id="textarea1BusStatus" class="materialize-textarea" name="Status" length="50">
                                 <label for="textarea1">Bus Status Update</label>
                             </div>
                         </div>
-                        <button class="btn waves-effect waves-light" type="submit"  onclick="">UPDATE
+                        <div class="row">
+                            <input class="with-gap" name="Importance" type="radio" id ="high">
+                            <label for="high">HIGH</label>
+                            
+                            <input class="with-gap" name="Importance" type="radio" id="medium">
+                            <label for="medium">MEDIUM</label>
+                            
+                            <input class="with-gap" name="Importance" type="radio" id="low">
+                            <label for="low"> LOW</label>
+                            
+                        </div>
+                            
+                        <button class="btn waves-effect waves-light" type="submit"  onclick="add_bus_status()">UPDATE
                                 <i class="material-icons right">send</i>
                         </button>
                     </form>

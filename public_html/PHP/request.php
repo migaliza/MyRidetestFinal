@@ -279,5 +279,21 @@ switch ($cmd) {
             echo "]}";
         }
         
+        break;
+    case 14:
+        include_once('busStatus.php');
+        $status = new busStatus();
+        
+        $newStatus =$_REQUEST['Status'];
+        $importance = $_REQUEST['Importance'];
+        $busname = $_REQUEST['BusName'];
+        
+        if($status->add_new_status($newStatus,$importance,$busname)){
+            echo '{"result":1,"message":"SUCCESSFULLY ADDED"}';
+        }
+        else{
+            echo '{"result":0, "message":"UNSUCCESSFULL"}';
+        }
+        break;
 }
 ?>

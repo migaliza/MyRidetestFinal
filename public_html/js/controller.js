@@ -17,10 +17,10 @@ $(document).ready(function () {
 });
 
 /*$(function(){
-    $(".modal-close").on('click',function(){
-        $("#AccidentModal").modal('hide');
-    });
-});*/
+ $(".modal-close").on('click',function(){
+ $("#AccidentModal").modal('hide');
+ });
+ });*/
 
 
 
@@ -388,21 +388,93 @@ function displayBusNames() {
     }
 }
 
+/**
+ * fucntion to pick the current cordinate and pass to the database
+ * @returns {undefined}
+ */
+function trafficStatus() {
+    navigator.geolocation.getCurrentPosition(addTrafficJamStatus);
+}
 
-function addTrafficJamStatus(){
+/**
+ * function to add trafic jam status to database
+ * @param {type} position
+ * @returns {undefined}
+ */
+function addTrafficJamStatus(position) {
     var level = "";
-    
+
     var jamStatus = $("#textarea1Jam").val();
-    if (document.getElementById("heavy").checked){
+    if (document.getElementById("heavy").checked) {
         level = "HEAVY";
     }
-    else if(document.getElementById("moderate").checked){
+    else if (document.getElementById("moderate").checked) {
         level = "MODERATE";
     }
-    else if(document.getElementById("standstill").checked){
+    else if (document.getElementById("standstill").checked) {
         level = "STANDSTILL";
     }
-    var latitude ="" ;
-    var longitude ="" ;
-        
+
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+
+    var stringVal = "level_of_traffic=" + level + "&jam_statement=" + jamStatus + "&latitude=" + latitude + "&longitude=" + longitude;
+    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=16&" + stringVal;
+    var object = sendRequest(theUrl);
+
+    if (object.result === 1) {
+        Materialize.toast(object.message, 4000, 'rounded');
+    }
+    else {
+        Materialize.toast(object.message, 4000, 'rounded');
+    }
+}
+
+/**
+ * fucntion to pick the current cordinate and pass to the database
+ * @returns {undefined}
+ */
+function accidentStatus() {
+ 
+    navigator.geolocation.getCurrentPosition(addAcciddentStatus);
+}
+
+/**
+ * function to insert the accident ocuurance on the database
+ * @param {type} position
+ * @returns {undefined}
+ */
+function addAcciddentStatus(position) {
+   
+    var update = $("#textarea1Accident").val();
+    
+    var accidentLevel = "";
+    
+    if(document.getElementById("minorA").checked){
+        accidentLevel = "MINOR";
+    }
+    else if(document.getElementById("majorA")){
+        accidentLevel = "MAJOR";
+    }
+    
+    
+     var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+   
+    
+    var stringVal = "Update_Statement="+update+"&longitude="+longitude + "&Latitude="+latitude+"&accidentLevel="+accidentLevel;
+    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=17&"+stringVal;
+    var object = sendRequest(theUrl);
+    
+    if(object.reults===1){
+           Materialize.toast(object.message, 4000, 'rounded');
+    }
+    else{
+           Materialize.toast(object.message, 4000, 'rounded');
+    }
+
+
+    
+    
 }

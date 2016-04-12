@@ -334,5 +334,23 @@ switch ($cmd) {
         }
         
         break;
+        
+    case 17:
+        include_once('accidentUpdate.php');
+        $accident = new accidentUpdate();
+        
+        $update = $_REQUEST['Update_Statement'];
+         $longitude = $_REQUEST['longitude'];
+         $latitude = $_REQUEST['Latitude'];
+         $accidentLevel = $_REQUEST['accidentLevel'];
+         
+         if($accident -> addAccident_update($update, $longitude,$latitude,$accidentLevel)){
+             echo '{"result":1,"message":"THANK YOU FOR THE UPDATE"}';
+         }
+         else{
+             echo '{"result":0,"message":"NOT SUCCESSFUL"}';
+         }
+         
+         break;
 }
 ?>

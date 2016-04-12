@@ -80,7 +80,7 @@ and open the template in the editor.
                         </div>
                         
                             
-                        <button class="btn waves-effect waves-light" type="submit"  onclick="">UPDATE
+                        <button class="btn waves-effect waves-light" type="submit"  onclick="trafficStatus();">UPDATE
                                 <i class="material-icons right">send</i>
                         </button>
                     </form>
@@ -145,23 +145,24 @@ and open the template in the editor.
                     <form class="col s12">
                        <div class="row">
                            
-                           <input class="with-gap" name="accident" type="radio" id ="minor" />
-                            <label for="minor">MINOR</label>
+                           <input class="with-gap" name="accidentLevel" type="radio" id ="minorA" />
+                            <label for="minorA">MINOR</label>
                             
-                            <input class="with-gap" name="accident" type="radio" id="major" />
-                            <label for="major">MAJOR</label>
+                            <input class="with-gap" name="accidentLevel" type="radio" id="majorA" />
+                            <label for="majorA">MAJOR</label>
+                            
   
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">mode_edit</i>
-                                <textarea id="textarea1Accident" class="materialize-textarea" name="Status" length="50"></textarea>
-                                <label for="accidentTextArea">Share details </label>
+                                <textarea id="textarea1Accident" class="materialize-textarea" name="Update_Statement" length="50"></textarea>
+                                <label for="textarea1Accident">Share details </label>
                             </div>
                         </div>
                         
                             
-                        <button class="btn waves-effect waves-light" type="submit"  onclick="add_bus_status()">UPDATE
+                        <button class="btn waves-effect waves-light" type="submit"  onclick="accidentStatus();">UPDATE
                                 <i class="material-icons right">send</i>
                         </button>
                     </form>
@@ -174,7 +175,7 @@ and open the template in the editor.
         </div>
         
         <div id="mobileShow">
-            <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+            <div class="fixed-action-btn " style="bottom: 45px; right: 24px;">
                 <a class="btn-floating btn-large red" data-tooltip="Report on Traffic" >
                     <i class="large material-icons">info_outline</i>
                 </a>

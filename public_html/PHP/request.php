@@ -295,5 +295,25 @@ switch ($cmd) {
             echo '{"result":0, "message":"UNSUCCESSFULL"}';
         }
         break;
+        
+    case 15:
+        include_once('busStatus.php');
+        $status = new busStatus();
+        
+        if($status->display_status()){
+            $row = $status->fetch();
+            echo '{"result":1,"status":[';
+            while($row){
+                echo json_encode($row);
+                $row = $status->fetch();
+                if($row){
+                    echo ",";
+                }
+            }
+            echo "]}";
+        }
+        else{
+            echo '{"result":0,"message":"Nothing to diplay"}';
+        }
 }
 ?>

@@ -1,3 +1,4 @@
+
 /* Custom Stylesheet */
 /**
  * Use this file to override Materialize files so you can update
@@ -21,6 +22,11 @@ body{
 #login-page{
     margin: 0 auto;
     max-width: 30%;
+}
+
+#marqueesValues{
+    height: 5%;
+    width:100%;
 }
 
 

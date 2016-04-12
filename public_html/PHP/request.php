@@ -315,5 +315,24 @@ switch ($cmd) {
         else{
             echo '{"result":0,"message":"Nothing to diplay"}';
         }
+        
+        break;
+    case 16:
+        include_once('trafficJam.php');
+        $jam = new trafficJam();
+        
+        $level = $_REQUEST['level_of_traffic'];
+        $jamStatus = $_REQUEST['jam_statement'];
+        $latitude = $_REQUEST['latitude'];
+        $longitude = $_REQUEST['longitude'];
+        
+        if($jam->insert_new_Jam_Update($level,$jamStatus,$latitude,$longitude)){
+            echo '{"result":1,"message":"THANK YOU FOR ADDING YOUR UPDATE"}';
+        }
+        else{
+            echo '{"result":0,"message":"NOT SUCCESSFULL TRY AGAIN"}';
+        }
+        
+        break;
 }
 ?>

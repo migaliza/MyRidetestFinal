@@ -16,10 +16,11 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    $('.modal-trigger').leanModal();
-});
+/*$(function(){
+    $(".modal-close").on('click',function(){
+        $("#AccidentModal").modal('hide');
+    });
+});*/
 
 
 
@@ -322,7 +323,8 @@ function managementLogin() {
 
 
 function add_bus_status() {
-    var status = $("#textarea1BusStatus").val();
+    var status = $("#latestStatus").val();
+    alert(status);
     var priority = "";
     var bus_name = $("#busNameId").val();
     if (document.getElementById("high").checked) {
@@ -384,4 +386,23 @@ function displayBusNames() {
             //$("#routecode").append('<option value="'+i+'">'+routes.Route_Code+'</option>');
         });
     }
+}
+
+
+function addTrafficJamStatus(){
+    var level = "";
+    
+    var jamStatus = $("#textarea1Jam").val();
+    if (document.getElementById("heavy").checked){
+        level = "HEAVY";
+    }
+    else if(document.getElementById("moderate").checked){
+        level = "MODERATE";
+    }
+    else if(document.getElementById("standstill").checked){
+        level = "STANDSTILL";
+    }
+    var latitude ="" ;
+    var longitude ="" ;
+        
 }

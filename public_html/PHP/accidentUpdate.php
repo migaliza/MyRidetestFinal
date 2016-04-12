@@ -13,7 +13,7 @@ class accidentUpdate extends adb{
      * @return boolean
      */
     function addAccident_update($update, $longitude,$latitude,$accidentLevel){
-        $str_query = "INSERT INTO accident_tbl(Update_Statement, longitude, Latitude,accidentLevel) VALUES ('$update','$longitude','$latitude',$accidentLevel')";
+        $str_query = "INSERT INTO accident_tbl(Update_Statement, longitude, Latitude,accidentLevel) VALUES ('$update','$longitude','$latitude','$accidentLevel')";
         if($this->query($str_query)){
             return true;
         }

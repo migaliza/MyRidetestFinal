@@ -340,7 +340,7 @@ function add_bus_status() {
 
     var stringVal = "Status=" + status + "&Importance=" + priority + "&BusName=" + bus_name;
     var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=14&" + stringVal;
-
+   
     var object = sendRequest(theUrl);
     if (object.result === 1) {
         Materialize.toast(object.message, 4000, 'rounded');
@@ -422,7 +422,7 @@ function addTrafficJamStatus(position) {
     var stringVal = "level_of_traffic=" + level + "&jam_statement=" + jamStatus + "&latitude=" + latitude + "&longitude=" + longitude;
     var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=16&" + stringVal;
     var object = sendRequest(theUrl);
-
+     prompt("urls is: ", theUrl);
     if (object.result === 1) {
         Materialize.toast(object.message, 4000, 'rounded');
     }
@@ -466,8 +466,8 @@ function addAcciddentStatus(position) {
     var stringVal = "Update_Statement="+update+"&longitude="+longitude + "&Latitude="+latitude+"&accidentLevel="+accidentLevel;
     var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=17&"+stringVal;
     var object = sendRequest(theUrl);
-    
-    if(object.reults===1){
+    //alert(object.result);
+    if(object.result===1){
            Materialize.toast(object.message, 4000, 'rounded');
     }
     else{

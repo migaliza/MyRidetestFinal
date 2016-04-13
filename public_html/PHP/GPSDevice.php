@@ -10,20 +10,23 @@ include ("adb.php");
 class GPSDevice extends adb {
 
     /**
-     * function to insert into the gpsdevice table 
+     * function to insert into the gpsdevice table and track the bus table
      * if the bus id already exists it overites what is already there
      * [[The add_GPS_Device]] is a function to add a new GPS device
      * @param [[Sting]] $name
      */
-    function add_GPS_Device($Device, $latitude, $longitude) {
-        $str_query = "INSERT INTO gpsdevice (Device_Id,long,lat) VALUES('$Device','$longitude','$latitude') ON DUPLICATE KEY UPDATE Latitude='$latitude', Longitude='$longitude'";
+    function add_GPS_Device($Device, $latitude,$longitude) {
 
-        if ($this->connect()) {
-            $this->query($str_query);
-
+        $str_query = "INSERT INTO gpsdevice (Device_Id,lon,lat) VALUES('$Device','$lon','$lat') ON DUPLICATE KEY UPDATE lat='$latitude', lon='$longitude';";
+        $str_query.= "INSERT INTO track_the_bus (Device_id,lon,lat) VALUES('$Device','$longitude','$latitude')";
+        
+        if($this->multiple_query_connection($str_query)){
             return true;
         }
-        return false;
+        else{
+             echo "Multi query failed: (" . $this->errno . ") " . $this->error;
+            return false;
+        }
     }
     
     function getGPSID(){

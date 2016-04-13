@@ -115,6 +115,24 @@ class adb {
 
         return true;
     }
+    
+    /**
+     * function to execute multiple querries
+     * @param type $sql_query
+     * @return boolean
+     */
+    function multiple_query_connection($sql_query){
+        if(!$this->connect()){
+            return false;
+        }
+        
+        $this->result = mysqli_multi_query($this->link,$sql_query);
+        if(!$this->result){
+            $this->log_error(LOG_LEVEL_DB_FAIL,4, "query failed",mysqli_error($this->link));
+            return false;
+        }
+        return true;
+    }
 
     /**
     * returns number of rows in current dataset

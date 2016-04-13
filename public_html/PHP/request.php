@@ -8,7 +8,8 @@ switch ($cmd) {
 
         $latitude = $_GET['lat'];
         $longitude = $_GET['long'];
-        $Device = $_GET['device_id'];
+        $Device = $_GET['Device_id'];
+    
 
         include_once('GPSDevice.php');
         $GPSdevice = new GPSDevice();
@@ -392,5 +393,25 @@ switch ($cmd) {
             }
             echo "]}";
         }
+        else{
+            echo '{"result":0,"message":"NOT SUCCESSFULL"}';
+        }
+        break;
+        
+    case 20:
+        include_once('rider.php');
+        $rider = new rider();
+        
+        $id = $_GET['id'];
+        $first= $_GET['Name'];
+        $last = $_GET['LastName'];
+        
+        if($rider->add_New_Student($id,$first,$last)){
+            echo '{"result":1,"message:"Successfully added"}';
+        }
+        else{
+            echo '{"result":0,"message":"Unsuccesfull"}';
+        }
+        
 }
 ?>

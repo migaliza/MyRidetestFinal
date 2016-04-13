@@ -10,6 +10,7 @@
 /* global google */
 
 
+var coords;
 $(document).ready(function () {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(initMap);
@@ -25,7 +26,7 @@ $(document).ready(function () {
  */
 
 
-var coords;
+
 
 function initMap(position) {
     var destination_place_id = null;
@@ -37,15 +38,16 @@ function initMap(position) {
         zoom: 17,
         center: coords,
         scrollwheel: true,
+        mapTypeControl: false,
         mapTypeControlOptions: {
             style: google.maps.NavigationControlStyle.SMALL
         }
     };
-    
+
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
     var map = new google.maps.Map(document.getElementById('MapCanvas'), options);
-    
+
     var personIcon = new google.maps.MarkerImage("images/personP.png", null, null, null, new google.maps.Size(60, 60));
 
 
@@ -53,14 +55,14 @@ function initMap(position) {
      * marker to show current position of user
      * @type google.maps.Marker
      */
-   var marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
         position: coords,
         map: map,
         title: "Your are here",
         icon: personIcon
     });
-    
-    
+
+
 
     /*
      * function to place buses on the map
@@ -72,25 +74,25 @@ function initMap(position) {
     function traceBusOnMap() {
         var theURL = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=2";
         var obj = sendRequest(theURL);
-        
+
         if (obj.result === 1) {
             $.each(obj.coordinates, function (i, coordinates) {
                 var bus = coordinates.Bus_name;
                 var longitude = coordinates.long;
                 var latitude = coordinates.lat;
-                
-                var info= '<div id="content">'+'<div id="siteNotice">'+'<div class="row">'+'<p> <b>Bus Name: '+bus
-                        +'</b></p><p><b> From: '+'</b></p><p><b>To: '+'</b><p><b>Next Bus Stop: '+'</b></p><p><b>Capacity: '+'</b></p></div>'+'</div></div>';
-              
-              /*var info = '<div id="content">'+'<div id = siteNotice>'+'<ul><il><a href="#infoModal" class="modal-trigger">View Bus Info</a></li><li><a href="">Update Bus Info</a></li>'+'</div>'+
-                      '<!--modal to view bus info--><div id="infoModal" class=modal><div class="modal-content">'+'<h4>'+bus+
-                      '</h4>'+''+'</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a></div>'+'</div>';*/
+
+                var info = '<div id="content">' + '<div id="siteNotice">' + '<div class="row">' + '<p> <b>Bus Name: ' + bus
+                        + '</b></p><p><b> From: ' + '</b></p><p><b>To: ' + '</b><p><b>Next Bus Stop: ' + '</b></p><p><b>Capacity: ' + '</b></p></div>' + '</div></div>';
+
+                /*var info = '<div id="content">'+'<div id = siteNotice>'+'<ul><il><a href="#infoModal" class="modal-trigger">View Bus Info</a></li><li><a href="">Update Bus Info</a></li>'+'</div>'+
+                 '<!--modal to view bus info--><div id="infoModal" class=modal><div class="modal-content">'+'<h4>'+bus+
+                 '</h4>'+''+'</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a></div>'+'</div>';*/
                 var infowindow = new google.maps.InfoWindow({
                     content: info
                 });
-        
+
                 var busIcon = new google.maps.MarkerImage("images/logo.png", null, null, null, new google.maps.Size(20, 20));
-               
+
 
                 var marker = new google.maps.Marker({
                     map: map,
@@ -98,7 +100,7 @@ function initMap(position) {
                     icon: busIcon,
                     title: bus
                 });
-                
+
                 marker.addListener('click', function () {
                     infowindow.open(map, marker);
                 });
@@ -109,65 +111,68 @@ function initMap(position) {
     }
 
     traceBusOnMap();
-    
-    function displayBusStops(){
+
+    function displayBusStops() {
         var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=5";
         var object = sendRequest(theUrl);
-        
-        if(object.result===1){
-            var buses=[];
-            $.each(object.busStops, function(i,busStops){
+
+        if (object.result === 1) {
+            var buses = [];
+            $.each(object.busStops, function (i, busStops) {
                 var latitude = busStops.Latitude;
                 var longitude = busStops.Longitude;
                 var stopName = busStops.Bus_Stop_Name;
                 var busNames = busStops.Bus_Name;
-                
-                buses[i]= busNames;
-                
-                 var info= '<div id="content">'+'<div id="siteNotice">'+'<div class="row">'+'<p> <b>Bus Stop Name: '+stopName
-                        +'</b></p></div></div>';
-                
+
+                buses[i] = busNames;
+
+                var info = '<div id="content">' + '<div id="siteNotice">' + '<div class="row">' + '<p> <b>Bus Stop Name: ' + stopName
+                        + '</b></p></div></div>';
+
                 var infowindow = new google.maps.InfoWindow({
                     content: info
                 });
-                
-                var busIcon = new google.maps.MarkerImage("images/busStopI.png",null,null,null,new google.maps.Size(30,30));
-                
+
+                var busIcon = new google.maps.MarkerImage("images/busStopI.png", null, null, null, new google.maps.Size(30, 30));
+
                 var marker = new google.maps.Marker({
-                   map:map,
-                   position: new google.maps.LatLng(latitude,longitude),
-                   icon: busIcon,
-                   title: stopName
+                    map: map,
+                    position: new google.maps.LatLng(latitude, longitude),
+                    icon: busIcon,
+                    title: stopName
                 });
                 marker.addListener('click', function () {
                     infowindow.open(map, marker);
-                });     
+                });
             });
-                
-            
+
+
         }
     }
-    
+
     displayBusStops();
 
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     directionsDisplay.setMap(map);
-    
+
     var origin = document.getElementById('start');
     var destination = document.getElementById('end');
+    var traficButton = document.getElementById('trafficstatus');
 
     // push the destination input text box on the map
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination);
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(traficButton);
+    google.maps.event.addDomListener(document.getElementById('trafficstatus'), 'click', diplayTafficStatus);
 
     //add autocompletion on the search text
     var origin_autocomplete = new google.maps.places.Autocomplete((origin));
     origin_autocomplete.bindTo('bounds', map);
     var destination_autoComplete = new google.maps.places.Autocomplete(destination);
     destination_autoComplete.bindTo('bounds', map);
-    
-    
+
+
     /**
      * function to fit the viewport on the screen
      * @param {type} map
@@ -196,10 +201,10 @@ function initMap(position) {
             return;
         }
         expandviewport(map, place);
-        
+
         /* if the place has geometry store its place id and route it if there is the other place id */
         origin_place_id = place.place_id;
-       // alert(origin_place_id);
+        // alert(origin_place_id);
         route(origin_place_id, destination_place_id, travel_mode, directionsService, directionsDisplay);
     });
 
@@ -246,6 +251,62 @@ function initMap(position) {
             }
         });
     }
+
+
+
+    /**
+     * function to display traffic status
+     * @returns {undefined}
+     */
+    function diplayTafficStatus() {
+        var theUrlTraffic = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=18";
+        var objectjam = sendRequest(theUrlTraffic);
+        if (objectjam.result === 1) {
+            $.each(objectjam.jam, function (i, jam) {
+                var jamStatus = jam.jam_statement;
+                var longitude = jam.longitude;
+                var latitude = jam.latitude;
+
+                var jamIcon = new google.maps.MarkerImage("images/trafficcolored.png", null, null, null, new google.maps.Size(30, 30));
+
+                var marker1 = new google.maps.Marker({
+                    map: map,
+                    position: new google.maps.LatLng(latitude, longitude),
+                    icon: jamIcon,
+                    title: jamStatus
+                });
+
+            });
+
+        }
+        else {
+            Materialize.toast(objectjam.message, 4000, 'rounded');
+        }
+        var theUrlAccident = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=19";
+        var objectAccident = sendRequest(theUrlAccident);
+        if (objectAccident.result === 1) {
+            $.each(objectAccident.accident, function (i, accident) {
+                var accidentStatement = accident.Update_Statement;
+                var longitude = accident.longitude;
+                var latitude = accident.Latitude;
+
+                var accidentIcon = new google.maps.MarkerImage("images/trafficcolored.png", null, null, null, new google.maps.Size(30, 30));
+
+                var marker2 = new google.maps.Marker({
+                    map: map,
+                    position: new google.maps.LatLng(latitude, longitude),
+                    icon: accidentIcon,
+                    title: accidentStatement
+                });
+            });
+        }
+        else {
+            Materialize.toast(objectAccident.message, 4000, 'rounded');
+        }
+
+    }
+
+
 }
 
 /*
@@ -264,16 +325,9 @@ function sendRequest(u) {
 /**
  * function to trigger the modal form
  */
-$(document).ready(function(){
+$(document).ready(function () {
     $('.modal-trigger').leanModal();
 });
 
 
 
-function displayBusStopInfo(id){
-    var theUrl="http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=5";
-    var searchElement= document.createElement("div");
-    searchElement.innerHTML= "<input type='text' value='id' ";
-    
-    
-}

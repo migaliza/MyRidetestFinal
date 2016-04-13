@@ -33,7 +33,7 @@ class busStatus extends adb{
     
     
     function display_status(){
-        $str_query = "SELECT Status,BusName, Importance FROM busstatus  ORDER BY date_Time  DESC LIMIT 2";
+        $str_query = "SELECT Status,BusName, Importance FROM busstatus  ORDER BY date_Time  DESC LIMIT 1";
         
         if($this->query($str_query)){
             return true;

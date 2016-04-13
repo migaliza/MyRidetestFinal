@@ -40,8 +40,7 @@ $('.datepicker').pickadate({
  */
 
 function sendRequest(u) {
-    //alert("here");
-    // alert(u);
+
     console.log(u);
     var obj = $.ajax({url: u, async: false});
     var result = $.parseJSON(obj.responseText);
@@ -81,28 +80,12 @@ function displayStops() {
     }
 }
 
-/**
- * function to display the collapsiblke body
- * @returns {undefined}
- */
-function populateCollapsibleBody(isStop) {
-    var theUrl2 = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=12&Bus_Stop_Name=" + isStop;
-    var obj2 = sendRequest(theUrl2);
-    if (obj2.result === 1) {
-        var listbus = "";
-        $.each(obj2.busStops, function (i, busStops) {
-            listbus += '<li>' + busStops.Bus_Name + '</li>';
-        });
-
-        $("#listBuses").append(listbus);
-    }
-}
 
 /**
  * function to add data to the database
  * @returns {undefined}
  */
-function addBus() {
+/*function addBus() {
     var busId = $("#Busid").val();
     var busName = $("#BusName").val();
     var gpsDeviceId = $("#GPSDevice_ID").val();
@@ -123,7 +106,7 @@ function addBus() {
         Materialize.toast(object.message, 5000, 'rounded');
     }
 
-}
+}*/
 
 /**
  * function to add a driver to the system 
@@ -324,7 +307,7 @@ function managementLogin() {
 
 function add_bus_status() {
     var status = $("#latestStatus").val();
-    alert(status);
+ 
     var priority = "";
     var bus_name = $("#busNameId").val();
     if (document.getElementById("high").checked) {
@@ -357,7 +340,7 @@ function  displayStatusOfBus() {
     var marquee = "";
     if (object.result === 1) {
         $.each(object.status, function (i, status) {
-            marquee = '<marquee>' + status.Importance + status.BusName + status.Status + '</marquee>';
+            marquee = '<marquee>' +"<b>Importance:</b> " +status.Importance +"<b> Bus Name:</b> "+ status.BusName +"<b> Status: </b>" +status.Status + '</marquee>';
         });
 
     }

@@ -352,5 +352,45 @@ switch ($cmd) {
          }
          
          break;
+         
+         
+    case 18:
+        include_once('trafficJam.php');
+        $jam = new trafficJam();
+        
+        if($jam->display_traffic_status()){
+            $row = $jam->fetch();
+            
+           echo '{"result":1,"jam":[';
+           while($row){
+               echo json_encode($row);
+               $row = $jam->fetch();
+               if($row){
+                   echo ",";
+               }
+           }
+           echo "]}";
+        }
+        else{
+            echo '{"result":0,"message":"NOTHING TO DISPLAY"}';
+        }
+        
+        break;
+    case 19:
+        include_once('accidentUpdate.php');
+        $accident = new accidentUpdate();
+        
+        if($accident->displayAccident_traffic_report()){
+            $row = $accident->fetch();
+            echo '{"result":1,"accident":[';
+            while($row){
+                echo json_encode($row);
+                $row = $accident->fetch();
+                if($row){
+                    echo ",";
+                }
+            }
+            echo "]}";
+        }
 }
 ?>

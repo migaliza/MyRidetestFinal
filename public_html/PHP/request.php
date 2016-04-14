@@ -7,7 +7,7 @@ switch ($cmd) {
 
 
         $latitude = $_GET['lat'];
-        $longitude = $_GET['long'];
+        $longitude = $_GET['lon'];
         $Device = $_GET['Device_id'];
     
 

@@ -20,24 +20,37 @@ and open the template in the editor.
     </head>
     <body >
         <div class="navbar-fixed">
+            <ul id="dropdown1" calss="dropdown-content">
+                <li><a href="nearestStop.html">Bus Stops</a></li>
+                <li class="divider"></li>
+                <li><a href="searchRoutesStops.html">Bus & Traffic Status</a></li>
+            </ul>
             <nav class="deep-orange lighten-2">
                 <div class="nav-wrapper container">
                     <a id="logo-container" href="#!" class="brand-logo">MyRide</a>
 
-
                     <ul class="right hide-on-med-and-down">
-                        <li> <a href="#">Home</a></li>
-                        <li><a href="BusRider.html">Bus Rider</a></li>
-                        <li><a href="#">Driver</a></li>
+                        <li> <a href="index.html">Home</a></li>
                         <li><a href="adminLogin.html">Management</a></li>
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Bus Rider<i class="material-icons right">arrow_drop_down</i></a></li>
                     </ul>
                     <!--mobile div-->
                     <div id="nav-mobile" class="side-nav">
                         <ul >
                             <li><a href="#">Home</a></li>
-                            <li><a href="BusRider.html">Bus Rider</a></li>
-                            <li><a href="#">Driver</a></li>
-                            <li><a href="adminLogin.html">Management</a></li>  
+                            <li><a href="adminLogin.html">Management</a></li> 
+                            <li class="no-padding">
+                                <ul class="collapsible collapsible-accordion">
+                                    <li>
+                                        <a class="collapsible-header">Bus Rider<i class="mdi-navigation-arrow-drop-down"></i></a>
+                                        <ul>
+                                            <li><a href="nearestStop.html">Bus Stops</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="searchRoutesStops.html">Bus & Traffic Status</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
 
@@ -50,7 +63,7 @@ and open the template in the editor.
         <!--search box-->
 
         <div><input id="start" class="controls" type="text" placeholder="Type starting point"></div>
-        <div> <input id="end" class="controls" type="text" placeholder="Type Destination"></div>
+        <div><input id="end" class="controls" type="text" placeholder="Type Destination"></div>
         <input type="button" id="trafficstatus"  value="TRAFFIC STATUS">
         <div id="MapCanvas" class="center" > </div>
         <div id="marqueesValues"><marquee></marquee></div>

@@ -5,14 +5,14 @@
  */
 $(document).ready(function () {
     $(".button-collapse").sideNav();
-
+    $(".dropdown-button").dropdown();
     displayRouteCode();
     displayStatusOfBus();
     displayBusNames();
 
     $('.modal-trigger').leanModal();
     $('.collapsible').collapsible({
-        accordion: false
+        accordion: true
     });
 });
 

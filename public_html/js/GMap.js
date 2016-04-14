@@ -78,7 +78,7 @@ function initMap(position) {
         if (obj.result === 1) {
             $.each(obj.coordinates, function (i, coordinates) {
                 var bus = coordinates.Bus_name;
-                var longitude = coordinates.long;
+                var longitude = coordinates.lon;
                 var latitude = coordinates.lat;
 
                 var info = '<div id="content">' + '<div id="siteNotice">' + '<div class="row">' + '<p> <b>Bus Name: ' + bus

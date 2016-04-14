@@ -46,7 +46,7 @@ class GPSDevice extends adb {
     
     function fetch_GPS_Coordinates(){
       
-        $str_query="SELECT gpsdevice.lat,gpsdevice.long, bus.Bus_name FROM gpsdevice INNER JOIN bus ON gpsdevice.Device_Id=bus.GPSDevice_ID";
+        $str_query="SELECT gpsdevice.lat,gpsdevice.lon, bus.Bus_name FROM gpsdevice INNER JOIN bus ON gpsdevice.Device_Id=bus.GPSDevice_ID";
         if($this->query($str_query)){
           
             return true;
